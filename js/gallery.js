@@ -83,25 +83,21 @@ const galleryMarkup = (arr) => {
 
 gallery.insertAdjacentHTML('beforeend', galleryMarkup(images));
 
-gallery.addEventListener('click', hadnlerClick);
+gallery.addEventListener('click', handlerClick);
 
-function hadnlerClick(event) {
+function handlerClick(event) {
   event.preventDefault();
   if(event.target.nodeName !== "IMG") {
     return;
   }
   const selectedImage = event.target.dataset.source;
-  const originalImage = images.find((item) => item.original === selectedImage);
-  
+  const altSelectedImage = event.target.alt;
+
   const instance = basicLightbox.create(`
 	<div class="modal">
-    <img src="${originalImage.original}" alt="${originalImage.description}" width=1112 />
+    <img src="${selectedImage}" alt="${altSelectedImage}" width=1112 />
   </div>
 `);
 instance.show();
-
-document.querySelector('div img').addEventListener('click', () => {
-  instance.close();
-})
 };
 
